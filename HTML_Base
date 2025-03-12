@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive USA Map</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        svg {
+            width: 80vw;
+            height: 80vh;
+        }
+        .state {
+            fill: #3498db;
+            stroke: white;
+            stroke-width: 1px;
+            transition: transform 0.2s ease-out;
+        }
+    </style>
+</head>
+<body>
+
+<svg id="us-map" viewBox="0 0 1000 600"></svg>
+
+<script>
+    // Load the SVG map
+    d3.xml("https://upload.wikimedia.org/wikipedia/commons/2/29/Blank_US_Map_%28states_only%29.svg")
+        .then(function(data) {
+            let svgNode = data.documentElement;
+            document.getElementById("us-map").appendChild(svgNode);
+            
+            // Select all states
+            d3.selectAll("path")
+                .classed("state", true)
+                .on("mouseover", function () {
+                    d3.select(this).transition().duration(100)
+                        .attr("transform", "scale(1.05)");
+                })
+                .on("mouseout", function () {
+                    d3.select(this).transition().duration(100)
+                        .attr("transform", "scale(1)");
+                });
+        });
+</script>
+
+</body>
+</html>
