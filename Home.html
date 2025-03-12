@@ -3,52 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive USA Map</title>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <title>USA Map</title>
     <style>
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
+            text-align: center;
+            font-family: Arial, sans-serif;
         }
         svg {
-            width: 80vw;
-            height: 80vh;
+            width: 80%;
+            max-width: 800px;
         }
         .state {
-            fill: #3498db;
-            stroke: white;
-            stroke-width: 1px;
-            transition: transform 0.2s ease-out;
+            fill: #ccc;
+            stroke: #333;
+            stroke-width: 1;
+            cursor: pointer;
+            transition: fill 0.3s;
+        }
+        .state:hover {
+            fill: #f00; /* Highlight state on hover */
         }
     </style>
 </head>
 <body>
 
-<svg id="us-map" viewBox="0 0 1000 600"></svg>
+<h2>Clickable USA Map</h2>
 
-<script>
-    // Load the SVG map
-    d3.xml("https://upload.wikimedia.org/wikipedia/commons/2/29/Blank_US_Map_%28states_only%29.svg")
-        .then(function(data) {
-            let svgNode = data.documentElement;
-            document.getElementById("us-map").appendChild(svgNode);
-            
-            // Select all states
-            d3.selectAll("path")
-                .classed("state", true)
-                .on("mouseover", function () {
-                    d3.select(this).transition().duration(100)
-                        .attr("transform", "scale(1.05)");
-                })
-                .on("mouseout", function () {
-                    d3.select(this).transition().duration(100)
-                        .attr("transform", "scale(1)");
-                });
-        });
-</script>
+<svg viewBox="0 0 959 593">
+    <!-- Example: California -->
+    <a href="https://en.wikipedia.org/wiki/California" target="_blank">
+        <path class="state" d="M100,450 L120,420 L140,410 L130,390 L110,370 L90,350 L70,340 L50,350 L40,370 L50,400 L70,430 Z"></path>
+    </a>
+
+    <!-- Example: Texas -->
+    <a href="https://en.wikipedia.org/wiki/Texas" target="_blank">
+        <path class="state" d="M300,500 L350,470 L370,450 L380,420 L400,400 L390,380 L360,360 L330,370 L310,390 L290,420 L280,450 Z"></path>
+    </a>
+
+    <!-- Add more states using <path> elements -->
+</svg>
 
 </body>
 </html>
